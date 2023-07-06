@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 name: unifi-controller
-version: 1.0.0
+version: 1.0.1
 description: "Ubiquiti Unifi Controller."
 home: https://www.ui.com/download/unifi/
 type: application
@@ -14,7 +14,7 @@ maintainers:
     email: hamzah@hamzahkhan.com
     url: https://blog.hamzahkhan.com/
 # renovate: image=docker.io/linuxserver/unifi-controller
-appVersion: "7.4.156"
+appVersion: "7.4.162"
 annotations:
   artifacthub.io/images: |
     - name: unifi-controller
