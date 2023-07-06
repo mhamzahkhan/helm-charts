@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 name: unifi-controller
-version: 1.0.0
+version: 1.0.1
 description: "Ubiquiti Unifi Controller."
 home: https://www.ui.com/download/unifi/
 type: application
