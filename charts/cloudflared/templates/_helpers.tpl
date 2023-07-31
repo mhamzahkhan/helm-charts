@@ -11,11 +11,18 @@ Expand the name of the chart.
 Create labels
 */}}
 {{- define "cloudflared.labels" -}}
-app.kubernetes.io/name: {{ include "cloudflared.name" . }}
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+{{ include "cloudflared.selectorLabels" . }}
 {{- end -}}
+
+{{- define "cloudflared.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "cloudflared.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
 
 {{/*
 Expand the name of the configmap.

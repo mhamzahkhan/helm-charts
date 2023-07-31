@@ -15,14 +15,12 @@ spec:
 {{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "cloudflared.name" . }}
+      {{- include "cloudflared.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "cloudflared.name" . }}
+        {{- include "cloudflared.labels" . | nindent 8 }}
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "2000"
         checksum/secrets: {{ include (print $.Template.BasePath "/tunnel-secret.yaml") . | sha256sum }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
@@ -37,12 +35,12 @@ spec:
             - /etc/cloudflared/config.yaml
             - run
           ports:
-            - name: prometheus
+            - name: http
               containerPort: 2000
           livenessProbe:
             httpGet:
               path: /ready
-              port: 2000
+              port: http
             failureThreshold: 1
             initialDelaySeconds: 10
             periodSeconds: 10

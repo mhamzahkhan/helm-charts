@@ -51,3 +51,7 @@ auth:
 ### Set up custom ingress rules here
 ingress:
   - service: http_status:404
+
+metrics:
+  enabled: false
+  #scrapeInterval: 30s

@@ -1,0 +1,19 @@
+{{- if .Values.metrics.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ include "cloudflared.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "cloudflared.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "cloudflared.selectorLabels" . | nindent 6 }}
+  podMetricsEndpoints:
+    - port: http
+    {{- with .Values.metrics.scrapeInterval }}
+      interval: {{.}}
+    {{- end }}
+{{- end }}
