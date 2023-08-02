@@ -69,7 +69,7 @@ spec:
             successThreshold: 1
             failureThreshold: 3
             timeoutSeconds: 1
-          {{- with .Values.activityrelay.resources }}
+          {{- with .Values.activityrelay.server.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}

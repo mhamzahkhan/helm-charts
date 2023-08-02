@@ -47,7 +47,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "activityrelay.fullname" . }}-config
-          {{- with .Values.activityrelay.resources }}
+          {{- with .Values.activityrelay.workers.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
