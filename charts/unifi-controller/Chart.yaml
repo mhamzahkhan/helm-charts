@@ -14,7 +14,7 @@ maintainers:
     email: hamzah@hamzahkhan.com
     url: https://blog.hamzahkhan.com/
 # renovate: image=docker.io/linuxserver/unifi-controller
-appVersion: "7.5.187"
+appVersion: "8.0.24"
 annotations:
   artifacthub.io/images: |
     - name: unifi-controller
