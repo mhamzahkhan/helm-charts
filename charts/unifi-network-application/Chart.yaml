@@ -1,0 +1,26 @@
+---
+apiVersion: v2
+name: unifi-network-application
+version: 1.0.1
+description: "Ubiquiti UniFi Network Server"
+home: https://www.ui.com/download/releases/network-server
+type: application
+keywords:
+  - unifi
+  - network-server
+  - network-application
+  - controller
+  - ubiquiti
+maintainers:
+  - name: M. Hamzah Khan
+    email: hamzah@hamzahkhan.com
+    url: https://blog.hamzahkhan.com/
+# renovate: image=docker.io/linuxserver/unifi-network-application
+appVersion: "8.3.32"
+annotations:
+  artifacthub.io/images: |
+    - name: unifi-network-application
+      image: linuxserver/unifi-network-application:8.3.32
+      platforms:
+        - linux/amd64
+        - linux/arm64

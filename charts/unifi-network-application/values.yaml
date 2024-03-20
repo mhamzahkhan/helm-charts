@@ -1,0 +1,105 @@
+---
+image:
+  repository: lscr.io/linuxserver/unifi-network-application
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+replicaCount: 1
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+service:
+  annotations: {}
+  type: ClusterIP
+
+  clusterIP: ""
+  loadBalancerIP: ""
+
+  externalTrafficPolicy: Cluster
+
+environment:
+  PUID: 1000
+  PGID: 1000
+  TZ: "Etc/UTC"
+  MONGO_USER: unifi
+  MONGO_PASS: "unifi"
+  MONGO_HOST: unifi-db
+  MONGO_PORT: 27017
+  MONGO_DBNAME: unifi
+  MEM_LIMIT: 1024
+  MEM_STARTUP: 1024
+
+resources: {}
+
+probes:
+  startup:
+    enabled: true
+    probe:
+      periodSeconds: 5
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 30
+      httpGet:
+        path: /status
+        port: https
+        scheme: HTTPS
+
+  liveness:
+    enabled: true
+    probe:
+      periodSeconds: 5
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 6
+      httpGet:
+        path: /status
+        port: https
+        scheme: HTTPS
+
+  readiness:
+    enabled: true
+    probe:
+      periodSeconds: 5
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+      httpGet:
+        path: /status
+        port: https
+        scheme: HTTPS
+
+podAnnotations: {}
+
+podSecurityContext: {}
+securityContext: {}
+
+nodeSelector:
+  kubernetes.io/os: linux
+
+affinity: {}
+
+tolerations: []
+
+# podDnsPolicy: "None"
+# podDnsConfig:
+#   options:
+#     - name: ndots
+#       value: "1"
+
+persistence:
+  storageClassName: ""
+  accessModes:
+    - ReadWriteOnce
+  size: 8Gi
