@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 name: activityrelay
-version: 1.0.40
+version: 1.0.41
 description: "Yet another powerful customizable ActivityPub relay server written in Go."
 home: https://github.com/yukimochi/Activity-Relay
 type: application
@@ -29,6 +29,6 @@ annotations:
 
 dependencies:
   - name: redis
-    version: 19.3.*
+    version: 19.4.*
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
