@@ -28,8 +28,9 @@
     ]
   },
   "separateMinorPatch": true,
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "fileMatch": [
         "\\.yaml$"
       ],
@@ -40,6 +41,7 @@
       "versioningTemplate": "docker"
     },
     {
+      "customType": "regex",
       "fileMatch": [
         "Chart\\.yaml$"
       ],
