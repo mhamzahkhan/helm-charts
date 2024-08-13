@@ -1,0 +1,85 @@
+---
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  registry: ghcr.io
+  repository: techno-tim/littlelink-server
+  # renovate: datasource=docker depName=ghcr.io/techno-tim/littlelink-server
+  tag: latest@sha256:735a1fcd078b0174e88c7cf10b28c5d67349873947aeb8e3a2dfd21cb58fcafc
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+resources: {}
+
+env: {}
+
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: /healthcheck
+    port: http
+  periodSeconds: 5
+  timeoutSeconds: 1
+  successThreshold: 1
+  failureThreshold: 6
+
+startupProbe:
+  enabled: true
+  httpGet:
+    path: /healthcheck
+    port: http
+  periodSeconds: 10
+  timeoutSeconds: 1
+  successThreshold: 1
+  failureThreshold: 30
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: /healthcheck
+    port: http
+  periodSeconds: 5
+  timeoutSeconds: 1
+  successThreshold: 1
+  failureThreshold: 3
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+service:
+  type: ClusterIP
+
+  port: 3000
+
+  clusterIP: ""
+  loadBalancerIP: ""
+
+  externalTrafficPolicy: Cluster
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 4
+  targetCPU: ""
+  targetMemory: ""
+
+nodeSelector:
+  kubernetes.io/os: linux
+
+tolerations: []
+
+affinity: []
