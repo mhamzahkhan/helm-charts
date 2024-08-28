@@ -16,7 +16,7 @@ maintainers:
     email: hamzah@hamzahkhan.com
     url: https://blog.hamzahkhan.com/
 # renovate: image=docker.io/linuxserver/unifi-network-application
-appVersion: "8.3.32"
+appVersion: "8.4.59"
 annotations:
   artifacthub.io/images: |
     - name: unifi-network-application
