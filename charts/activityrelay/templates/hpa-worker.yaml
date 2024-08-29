@@ -1,0 +1,34 @@
+{{- if .Values.activityrelay.workers.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "activityrelay.fullname" . }}-worker
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    {{- include "activityrelay.labels" . | nindent 4 }}
+    app.kubernetes.io/component: worker
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "activityrelay.fullname" . }}-worker
+  minReplicas: {{ .Values.activityrelay.workers.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.activityrelay.workers.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.activityrelay.workers.autoscaling.targetMemory }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.activityrelay.workers.autoscaling.targetMemory }}
+    {{- end }}
+    {{- if .Values.activityrelay.workers.autoscaling.targetCPU }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.activityrelay.workers.autoscaling.targetCPU }}
+    {{- end }}
+{{- end }}

@@ -5,8 +5,13 @@ metadata:
   name: {{ include "activityrelay.fullname" . }}-server
   labels:
     {{- include "activityrelay.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
 spec:
+  {{- if not .Values.activityrelay.server.autoscaling.enabled }}
   replicas: {{ .Values.activityrelay.server.replicaCount }}
+  {{- end }}
+  strategy:
+    {{- toYaml .Values.activityrelay.server.strategy | nindent 4 }}
   selector:
     matchLabels:
       {{- include "activityrelay.selectorLabels" . | nindent 6 }}

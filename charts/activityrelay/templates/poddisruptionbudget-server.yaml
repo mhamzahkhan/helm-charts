@@ -1,0 +1,15 @@
+{{- if or (gt .Values.activityrelay.server.replicaCount 1.0) (.Values.activityrelay.server.autoscaling.enabled) }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "activityrelay.fullname" . }}-server
+  labels:
+    {{- include "activityrelay.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      {{- include "activityrelay.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: server
+{{- end }}

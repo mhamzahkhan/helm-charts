@@ -32,6 +32,11 @@ activityrelay:
 
   server:
     replicaCount: 1
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
     port: 8080
     extraArgs:
       - "--verbose"
@@ -53,9 +58,20 @@ activityrelay:
                   app.kubernetes.io/component: workers
             topologyKey: kubernetes.io/hostname
     resources: {}
+    autoscaling:
+      enabled: false
+      minReplicas: 1
+      maxReplicas: 4
+      targetCPU: ""
+      targetMemory: ""
 
   workers:
     replicaCount: 3
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
     extraArgs:
       - "--verbose"
     podAnnotations: {}
@@ -74,6 +90,12 @@ activityrelay:
                   app.kubernetes.io/component: workers
             topologyKey: kubernetes.io/hostname
     resources: {}
+    autoscaling:
+      enabled: false
+      minReplicas: 1
+      maxReplicas: 4
+      targetCPU: ""
+      targetMemory: ""
 
 redis:
   enabled: true
