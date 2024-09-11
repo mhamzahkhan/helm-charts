@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 name: unifi-network-application
-version: 1.0.1
+version: 1.0.2
 description: "Ubiquiti UniFi Network Server"
 home: https://www.ui.com/download/releases/network-server
 type: application
@@ -16,11 +16,11 @@ maintainers:
     email: hamzah@hamzahkhan.com
     url: https://blog.hamzahkhan.com/
 # renovate: image=docker.io/linuxserver/unifi-network-application
-appVersion: "8.4.59"
+appVersion: "8.4.62"
 annotations:
   artifacthub.io/images: |
     - name: unifi-network-application
-      image: linuxserver/unifi-network-application:8.3.32
+      image: linuxserver/unifi-network-application:8.4.62
       platforms:
         - linux/amd64
         - linux/arm64
